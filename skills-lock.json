@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "skills": {
+    "code-review": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "9c695292e41e25c71ed17a5c2a6bd6fe9bdf07adbea895d13684850ed467a7a7"
+    },
+    "codebase-design": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "5a17552cc1482f1a40124bf4e6c9dbd90ac0dbb47e71c07d47369f9e5f2ae3b5"
+    },
+    "diagnosing-bugs": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "37b5e9c624513551da790b52864dc8c84bff996a6d03a380cc6facdcc0a88354"
+    },
+    "domain-modeling": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "a11713c0ff7870efa3c331b2e273f09116158485246edc89ae5088eefd1b0b48"
+    },
+    "expo-rn": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "61c1aa49bada819ac92cffb978eb526eb7c4f3bbff1b7254957b82cee8872b5c"
+    },
+    "grill-me": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "6ed163e2bcdc0bc3c150a5675bd66a4ad11a8561f2fea0f5dfc2a8fd16ef4f89"
+    },
+    "grill-with-docs": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "3a8effa46a40ca67893ef531772c3b0ed7e652ecb5af4405a16622479058ed35"
+    },
+    "grilling": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "163f8a73180ed1485983deef2d28bd512b00d3af1f23706083cba8a9309ca82c"
+    },
+    "implement": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "f3db6918df886ae434c47151a72fa528f6ac01ee175ac8b6d67b8978493bd5b7"
+    },
+    "tdd": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "e357821cca646ff02e700f40b035d5de2c951377e0923cd8a2440250438d2f94"
+    },
+    "to-spec": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "3fa1a0695d4ea242fae9e569e4d22aa1788623197abb33bfadafae7315789bbf"
+    },
+    "to-tickets": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "a7cbc7f0c4e108da2e37f6211d8d00e5f410455053e5d998bbc259148cc6480c"
+    },
+    "typescript": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "0f57002960471d9f9dc0c879b1d23004960331074bfbd65684bb44cd3b79509d"
+    },
+    "vercel-react-native-skills": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "2e9088a7333666d8c2833b8ff58bd51b955501c42b4c7244f72b4cbf22dafcc4"
+    },
+    "which-skill": {
+      "source": "../../../AppData/Local/npm-cache/_npx/8ed89bf56409b170/node_modules/agent-skills-catalog",
+      "sourceType": "local",
+      "computedHash": "c58eeb7766ded7fdca4b0d9d511ff5b0ae17994c467856b6e99261675df87ad2"
+    }
+  }
+}
