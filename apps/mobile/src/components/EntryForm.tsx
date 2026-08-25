@@ -12,6 +12,7 @@ import {
 
 import { EMOTION_SUGGESTIONS, REACTION_SUGGESTIONS } from "../domain/constants";
 import { newId } from "../domain/id";
+import { applyShareRules, shareBudgetError } from "../domain/shares";
 import type { DiaryEntryDraft, Tag } from "../domain/types";
 import { situationError } from "../domain/validation";
 import { colors } from "../theme";
@@ -31,8 +32,10 @@ function emptyScaled() {
 
 export function EntryForm({ initial, tags, submitLabel, onSubmit, onCreateTag }: Props) {
   const [situation, setSituation] = useState(initial.situation);
-  const [thoughts, setThoughts] = useState(
-    initial.thoughts.length > 0 ? initial.thoughts : emptyScaled(),
+  const [thoughts, setThoughts] = useState(() =>
+    applyShareRules(initial.thoughts.length > 0 ? initial.thoughts : emptyScaled(), {
+      lockSoleToMax: true,
+    }),
   );
   const [emotions, setEmotions] = useState(
     initial.emotions.length > 0 ? initial.emotions : emptyScaled(),
@@ -62,13 +65,24 @@ export function EntryForm({ initial, tags, submitLabel, onSubmit, onCreateTag }:
       setError(message);
       return;
     }
+    const nextThoughts = applyShareRules(thoughts, { lockSoleToMax: true });
+    const thoughtError = shareBudgetError("thoughts", nextThoughts);
+    if (thoughtError) {
+      setError(thoughtError);
+      return;
+    }
+    const emotionError = shareBudgetError("emotions", emotions);
+    if (emotionError) {
+      setError(emotionError);
+      return;
+    }
     setSaving(true);
     setError(null);
     try {
       await onSubmit({
         id: initial.id,
         situation,
-        thoughts,
+        thoughts: nextThoughts,
         emotions,
         reactions,
         tagIds,
@@ -137,11 +151,18 @@ export function EntryForm({ initial, tags, submitLabel, onSubmit, onCreateTag }:
         />
       ) : null}
 
-      <ScaledRowList title="Мысли" items={thoughts} onChange={setThoughts} />
+      <ScaledRowList
+        title="Мысли"
+        items={thoughts}
+        shareBudget
+        lockSoleToMax
+        onChange={setThoughts}
+      />
       <ScaledRowList
         title="Эмоции"
         items={emotions}
         suggestions={EMOTION_SUGGESTIONS}
+        shareBudget
         onChange={setEmotions}
       />
       <ScaledRowList
