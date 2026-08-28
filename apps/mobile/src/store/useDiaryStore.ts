@@ -8,9 +8,7 @@ type DiaryState = {
   error: string | null;
   entries: DiaryEntry[];
   tags: Tag[];
-  filterTagId: string | null;
   hydrate: () => Promise<void>;
-  setFilterTagId: (tagId: string | null) => Promise<void>;
   saveEntry: (draft: DiaryEntryDraft) => Promise<DiaryEntry>;
   deleteEntry: (id: string) => Promise<void>;
   createTag: (name: string) => Promise<Tag>;
@@ -23,13 +21,9 @@ export const useDiaryStore = create<DiaryState>((set, get) => ({
   error: null,
   entries: [],
   tags: [],
-  filterTagId: null,
   hydrate: async () => {
     try {
-      const [tags, entries] = await Promise.all([
-        repo.listTags(),
-        repo.listEntries(get().filterTagId),
-      ]);
+      const [tags, entries] = await Promise.all([repo.listTags(), repo.listEntries()]);
       set({ tags, entries, ready: true, error: null });
     } catch (error) {
       set({
@@ -38,17 +32,9 @@ export const useDiaryStore = create<DiaryState>((set, get) => ({
       });
     }
   },
-  setFilterTagId: async (tagId) => {
-    set({ filterTagId: tagId });
-    const entries = await repo.listEntries(tagId);
-    set({ entries });
-  },
   saveEntry: async (draft) => {
     const saved = await repo.saveEntry(draft);
-    const [tags, entries] = await Promise.all([
-      repo.listTags(),
-      repo.listEntries(get().filterTagId),
-    ]);
+    const [tags, entries] = await Promise.all([repo.listTags(), repo.listEntries()]);
     set({ tags, entries });
     return saved;
   },
@@ -63,16 +49,12 @@ export const useDiaryStore = create<DiaryState>((set, get) => ({
   },
   renameTag: async (id, name) => {
     await repo.renameTag(id, name);
-    const [tags, entries] = await Promise.all([
-      repo.listTags(),
-      repo.listEntries(get().filterTagId),
-    ]);
+    const [tags, entries] = await Promise.all([repo.listTags(), repo.listEntries()]);
     set({ tags, entries });
   },
   deleteTag: async (id) => {
     await repo.deleteTag(id);
-    const filterTagId = get().filterTagId === id ? null : get().filterTagId;
-    const [tags, entries] = await Promise.all([repo.listTags(), repo.listEntries(filterTagId)]);
-    set({ tags, entries, filterTagId });
+    const [tags, entries] = await Promise.all([repo.listTags(), repo.listEntries()]);
+    set({ tags, entries });
   },
 }));

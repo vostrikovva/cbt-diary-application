@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { INTENSITY_MAX, INTENSITY_MIN } from "../domain/constants";
 import { newId } from "../domain/id";
+import { applyShareRules, defaultShareIntensity, remainingShare } from "../domain/shares";
 import type { ScaledItem } from "../domain/types";
 import { colors } from "../theme";
 
@@ -9,19 +10,31 @@ type Props = {
   title: string;
   items: ScaledItem[];
   suggestions?: readonly string[];
+  shareBudget?: boolean;
+  lockSoleToMax?: boolean;
   onChange: (items: ScaledItem[]) => void;
 };
 
-function emptyItem(): ScaledItem {
-  return { id: newId(), label: "", intensity: 5 };
+function emptyItem(intensity = 5): ScaledItem {
+  return { id: newId(), label: "", intensity };
 }
 
-export function ScaledRowList({ title, items, suggestions, onChange }: Props) {
+export function ScaledRowList({
+  title,
+  items,
+  suggestions,
+  shareBudget = false,
+  lockSoleToMax = false,
+  onChange,
+}: Props) {
   const rows = items.length > 0 ? items : [emptyItem()];
 
+  function emit(next: ScaledItem[]) {
+    onChange(shareBudget ? applyShareRules(next, { lockSoleToMax }) : next);
+  }
+
   function update(index: number, patch: Partial<ScaledItem>) {
-    const next = rows.map((row, rowIndex) => (rowIndex === index ? { ...row, ...patch } : row));
-    onChange(next);
+    emit(rows.map((row, rowIndex) => (rowIndex === index ? { ...row, ...patch } : row)));
   }
 
   return (
@@ -33,44 +46,74 @@ export function ScaledRowList({ title, items, suggestions, onChange }: Props) {
             <Pressable
               key={label}
               style={styles.suggestion}
-              onPress={() => onChange([...rows.filter((row) => row.label.trim()), { ...emptyItem(), label }])}
+              onPress={() => {
+                const kept = rows.filter((row) => row.label.trim());
+                const nextIntensity = shareBudget ? defaultShareIntensity(kept) : 5;
+                emit([...kept, { ...emptyItem(nextIntensity), label }]);
+              }}
             >
               <Text style={styles.suggestionText}>{label}</Text>
             </Pressable>
           ))}
         </View>
       ) : null}
-      {rows.map((item, index) => (
-        <View key={item.id} style={styles.row}>
-          <TextInput
-            value={item.label}
-            onChangeText={(label) => update(index, { label })}
-            placeholder="Своё…"
-            placeholderTextColor={colors.muted}
-            style={styles.input}
-          />
-          <View style={styles.scale}>
-            {Array.from({ length: INTENSITY_MAX - INTENSITY_MIN + 1 }, (_, value) => (
-              <Pressable
-                key={value}
-                onPress={() => update(index, { intensity: value })}
-                style={[styles.tick, item.intensity === value && styles.tickOn]}
-              >
-                <Text style={[styles.tickText, item.intensity === value && styles.tickTextOn]}>{value}</Text>
-              </Pressable>
-            ))}
+      {rows.map((item, index) => {
+        const maxTick = shareBudget ? remainingShare(rows, index) : INTENSITY_MAX;
+        const soleLocked =
+          shareBudget && lockSoleToMax && rows.filter((row) => row.label.trim()).length === 1;
+        return (
+          <View key={item.id} style={styles.row}>
+            <TextInput
+              value={item.label}
+              onChangeText={(label) => update(index, { label })}
+              placeholder="Своё…"
+              placeholderTextColor={colors.muted}
+              style={styles.input}
+            />
+            <View style={styles.scale}>
+              {Array.from({ length: INTENSITY_MAX - INTENSITY_MIN + 1 }, (_, value) => {
+                const disabled = shareBudget && (soleLocked || value > maxTick);
+                const on = item.intensity === value;
+                return (
+                  <Pressable
+                    key={value}
+                    onPress={() => {
+                      if (disabled) {
+                        return;
+                      }
+                      update(index, { intensity: value });
+                    }}
+                    style={[styles.tick, on && styles.tickOn, disabled && styles.tickOff]}
+                  >
+                    <Text
+                      style={[
+                        styles.tickText,
+                        on && styles.tickTextOn,
+                        disabled && styles.tickTextOff,
+                      ]}
+                    >
+                      {value}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+            <Pressable
+              onPress={() => {
+                const next = rows.filter((_, rowIndex) => rowIndex !== index);
+                emit(next.length > 0 ? next : [emptyItem()]);
+              }}
+            >
+              <Text style={styles.remove}>Убрать</Text>
+            </Pressable>
           </View>
-          <Pressable
-            onPress={() => {
-              const next = rows.filter((_, rowIndex) => rowIndex !== index);
-              onChange(next.length > 0 ? next : [emptyItem()]);
-            }}
-          >
-            <Text style={styles.remove}>Убрать</Text>
-          </Pressable>
-        </View>
-      ))}
-      <Pressable onPress={() => onChange([...rows, emptyItem()])}>
+        );
+      })}
+      <Pressable
+        onPress={() =>
+          emit([...rows, emptyItem(shareBudget ? defaultShareIntensity(rows) : 5)])
+        }
+      >
         <Text style={styles.add}>+ строка</Text>
       </Pressable>
     </View>
@@ -113,8 +156,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bg,
   },
   tickOn: { backgroundColor: colors.accent },
+  tickOff: { opacity: 0.35 },
   tickText: { fontSize: 12, color: colors.ink },
   tickTextOn: { color: colors.white, fontWeight: "700" },
+  tickTextOff: { color: colors.muted },
   remove: { color: colors.muted, fontSize: 13 },
   add: { color: colors.accent, fontWeight: "600" },
 });
