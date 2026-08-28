@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
-import { EntryListCard } from "../../src/components/EntryListCard";
-import { NewEntryFab } from "../../src/components/NewEntryFab";
-import { TagFilterChips } from "../../src/components/TagFilterChips";
+import { CreateEntryFab } from "../../src/components/CreateEntryFab";
+import { DiaryEntryCard } from "../../src/components/DiaryEntryCard";
+import { TagFilterBar } from "../../src/components/TagFilterBar";
 import { entriesWithTag } from "../../src/domain/format";
 import { useDiaryStore } from "../../src/store/useDiaryStore";
 import { colors } from "../../src/theme";
@@ -16,7 +16,7 @@ export default function ListScreen() {
 
   return (
     <View style={styles.screen}>
-      <TagFilterChips tags={tags} selectedTagId={filterTagId} onSelect={setFilterTagId} />
+      <TagFilterBar tags={tags} selectedTagId={filterTagId} onSelect={setFilterTagId} />
       <FlatList
         data={visible}
         keyExtractor={(item) => item.id}
@@ -28,9 +28,9 @@ export default function ListScreen() {
               : "Пока нет записей. Добавьте первую ситуацию."}
           </Text>
         }
-        renderItem={({ item }) => <EntryListCard entry={item} tags={tags} />}
+        renderItem={({ item }) => <DiaryEntryCard entry={item} tags={tags} />}
       />
-      <NewEntryFab />
+      <CreateEntryFab />
     </View>
   );
 }

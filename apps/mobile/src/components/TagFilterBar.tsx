@@ -10,7 +10,7 @@ type Props = {
   padded?: boolean;
 };
 
-export function TagFilterChips({ tags, selectedTagId, onSelect, padded = true }: Props) {
+export function TagFilterBar({ tags, selectedTagId, onSelect, padded = true }: Props) {
   return (
     <View style={[styles.filters, !padded && styles.filtersFlush]}>
       <Pressable

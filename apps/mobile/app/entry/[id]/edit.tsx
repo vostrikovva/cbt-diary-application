@@ -1,7 +1,7 @@
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
 
-import { EntryForm } from "../../../src/components/EntryForm";
+import { DiaryEntryForm } from "../../../src/components/DiaryEntryForm";
 import { useDiaryStore } from "../../../src/store/useDiaryStore";
 
 export default function EditEntryScreen() {
@@ -23,7 +23,7 @@ export default function EditEntryScreen() {
   return (
     <ScrollView>
       <Stack.Screen options={{ title: "Правка" }} />
-      <EntryForm
+      <DiaryEntryForm
         submitLabel="Сохранить изменения"
         tags={tags}
         onCreateTag={createTag}

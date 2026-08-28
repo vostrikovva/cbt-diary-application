@@ -1,6 +1,6 @@
 import { Drawer } from "expo-router/drawer";
 
-import { TagsHeaderLink } from "../../src/components/TagsHeaderLink";
+import { TagsScreenButton } from "../../src/components/TagsScreenButton";
 import { colors } from "../../src/theme";
 
 export default function DrawerLayout() {
@@ -14,7 +14,7 @@ export default function DrawerLayout() {
         drawerActiveTintColor: colors.accent,
         drawerInactiveTintColor: colors.ink,
         drawerStyle: { backgroundColor: colors.bg },
-        headerRight: () => <TagsHeaderLink />,
+        headerRight: () => <TagsScreenButton />,
       }}
     >
       <Drawer.Screen name="index" options={{ title: "Все события", drawerLabel: "Все события" }} />
