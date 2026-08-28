@@ -1,7 +1,7 @@
 import { Stack, router } from "expo-router";
 import { ScrollView } from "react-native";
 
-import { EntryForm } from "../../src/components/EntryForm";
+import { DiaryEntryForm } from "../../src/components/DiaryEntryForm";
 import { useDiaryStore } from "../../src/store/useDiaryStore";
 
 export default function NewEntryScreen() {
@@ -12,7 +12,7 @@ export default function NewEntryScreen() {
   return (
     <ScrollView>
       <Stack.Screen options={{ title: "Новая запись" }} />
-      <EntryForm
+      <DiaryEntryForm
         submitLabel="Сохранить"
         tags={tags}
         onCreateTag={createTag}

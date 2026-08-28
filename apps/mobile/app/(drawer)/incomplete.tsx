@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
-import { EntryListCard } from "../../src/components/EntryListCard";
-import { NewEntryFab } from "../../src/components/NewEntryFab";
+import { CreateEntryFab } from "../../src/components/CreateEntryFab";
+import { DiaryEntryCard } from "../../src/components/DiaryEntryCard";
 import { isEntryIncomplete } from "../../src/domain/validation";
 import { useDiaryStore } from "../../src/store/useDiaryStore";
 import { colors } from "../../src/theme";
@@ -18,9 +18,9 @@ export default function IncompleteScreen() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         ListEmptyComponent={<Text style={styles.empty}>Незаполненных событий нет.</Text>}
-        renderItem={({ item }) => <EntryListCard entry={item} tags={tags} />}
+        renderItem={({ item }) => <DiaryEntryCard entry={item} tags={tags} />}
       />
-      <NewEntryFab />
+      <CreateEntryFab />
     </View>
   );
 }

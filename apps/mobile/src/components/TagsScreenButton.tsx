@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 import { colors } from "../theme";
 
-export function TagsHeaderLink() {
+export function TagsScreenButton() {
   return (
     <Link href="/tags" asChild>
       <Pressable>

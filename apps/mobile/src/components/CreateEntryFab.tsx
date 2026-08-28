@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 import { colors } from "../theme";
 
-export function NewEntryFab() {
+export function CreateEntryFab() {
   return (
     <Link href="/entry/new" asChild>
       <Pressable style={styles.fab}>

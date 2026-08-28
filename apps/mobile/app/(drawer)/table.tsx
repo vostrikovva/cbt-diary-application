@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { EntriesTable } from "../../src/components/EntriesTable";
-import { TagFilterChips } from "../../src/components/TagFilterChips";
+import { DiaryOverviewTable } from "../../src/components/DiaryOverviewTable";
+import { TagFilterBar } from "../../src/components/TagFilterBar";
 import { entriesWithTag } from "../../src/domain/format";
 import { lockLandscape, lockPortrait } from "../../src/orientation";
 import { useDiaryStore } from "../../src/store/useDiaryStore";
@@ -66,7 +66,7 @@ export default function TableScreen() {
     <View style={styles.screen}>
       <View style={styles.toolbar}>
         <View style={styles.filters}>
-          <TagFilterChips
+          <TagFilterBar
             tags={tags}
             selectedTagId={filterTagId}
             onSelect={setFilterTagId}
@@ -90,7 +90,7 @@ export default function TableScreen() {
       ) : (
         <View style={styles.cardSlot}>
           <View style={styles.card}>
-            <EntriesTable entries={visible} />
+            <DiaryOverviewTable entries={visible} />
           </View>
         </View>
       )}
@@ -125,7 +125,7 @@ export default function TableScreen() {
               <Text style={styles.fullscreenText}>Закрыть</Text>
             </Pressable>
             <View style={styles.filters}>
-              <TagFilterChips
+              <TagFilterBar
                 tags={tags}
                 selectedTagId={filterTagId}
                 onSelect={setFilterTagId}
@@ -143,7 +143,7 @@ export default function TableScreen() {
               ]}
             >
               <View style={styles.card}>
-                <EntriesTable entries={visible} onRowPress={openEntry} />
+                <DiaryOverviewTable entries={visible} onRowPress={openEntry} />
               </View>
             </View>
           )}

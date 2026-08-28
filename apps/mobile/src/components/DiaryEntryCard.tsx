@@ -11,7 +11,7 @@ type Props = {
   tags: Tag[];
 };
 
-export function EntryListCard({ entry, tags }: Props) {
+export function DiaryEntryCard({ entry, tags }: Props) {
   const incomplete = isEntryIncomplete(entry);
   const tagNames = tagNamesForEntry(entry, tags);
 
