@@ -1,10 +1,14 @@
 {
   "name": "cbt-diary-application",
   "private": true,
-  "packageManager": "pnpm@11.15.1",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "start": "pnpm --filter mobile start",
-    "android": "pnpm --filter mobile android",
-    "typecheck": "pnpm --filter mobile typecheck"
+    "start": "npm run start -w mobile",
+    "prebuild": "npm run prebuild -w mobile",
+    "android": "npm run android -w mobile",
+    "android:device": "npm run android -w mobile -- --device",
+    "typecheck": "npm run typecheck -w mobile"
   }
 }
