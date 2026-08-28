@@ -5,6 +5,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { lockPortrait } from "../src/orientation";
 import { useDiaryStore } from "../src/store/useDiaryStore";
 import { colors } from "../src/theme";
 
@@ -15,6 +16,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     void hydrate();
+    void lockPortrait().catch(() => undefined);
   }, [hydrate]);
 
   if (!ready) {
@@ -45,7 +47,7 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: colors.bg },
           }}
         >
-          <Stack.Screen name="index" />
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           <Stack.Screen name="tags" />
           <Stack.Screen name="entry/new" />
           <Stack.Screen name="entry/[id]" options={{ headerShown: false }} />
