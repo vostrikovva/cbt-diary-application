@@ -1,0 +1,5 @@
+interface:
+  display_name: "Teach Me"
+  short_description: "Motivation then Q&A; never edits files"
+policy:
+  allow_implicit_invocation: false
