@@ -138,7 +138,13 @@ export function DiaryEntryForm({ initial, tags, submitLabel, onSubmit, onCreateT
         }}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Pressable style={[styles.save, saving ? styles.saveOff : null]} onPress={submit} disabled={saving}>
+      <Pressable
+        style={[styles.save, saving ? styles.saveOff : null]}
+        onPress={() => {
+          void submit();
+        }}
+        disabled={saving}
+      >
         <Text style={styles.saveText}>{saving ? "Сохранение…" : submitLabel}</Text>
       </Pressable>
     </View>

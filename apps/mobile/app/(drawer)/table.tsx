@@ -143,7 +143,12 @@ export default function TableScreen() {
               ]}
             >
               <View style={styles.card}>
-                <DiaryOverviewTable entries={visible} onRowPress={openEntry} />
+                <DiaryOverviewTable
+                  entries={visible}
+                  onRowPress={(entryId) => {
+                    void openEntry(entryId);
+                  }}
+                />
               </View>
             </View>
           )}

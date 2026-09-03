@@ -1,10 +1,10 @@
 function webRandomUUID(): string | null {
   try {
-    const randomUUID = globalThis.crypto?.randomUUID;
-    if (typeof randomUUID !== "function") {
+    const crypto = globalThis.crypto;
+    if (typeof crypto?.randomUUID !== "function") {
       return null;
     }
-    return randomUUID.call(globalThis.crypto);
+    return crypto.randomUUID();
   } catch {
     return null;
   }
