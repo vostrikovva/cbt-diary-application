@@ -8,7 +8,10 @@
     "scheme": "smer-diary",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Нужно, чтобы разблокировать дневник по Face ID."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +28,19 @@
     },
     "plugins": [
       "expo-router",
-      "expo-sqlite",
+      [
+        "expo-sqlite",
+        {
+          "useSQLCipher": true
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Нужно, чтобы разблокировать дневник по Face ID."
+        }
+      ],
+      "expo-local-authentication",
       [
         "expo-screen-orientation",
         {

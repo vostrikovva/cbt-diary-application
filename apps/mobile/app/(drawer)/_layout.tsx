@@ -26,6 +26,10 @@ export default function DrawerLayout() {
         name="incomplete"
         options={{ title: "Незаполненные", drawerLabel: "Незаполненные" }}
       />
+      <Drawer.Screen
+        name="security"
+        options={{ title: "Безопасность", drawerLabel: "Безопасность" }}
+      />
     </Drawer>
   );
 }

@@ -9,6 +9,7 @@ type DiaryState = {
   entries: DiaryEntry[];
   tags: Tag[];
   hydrate: () => Promise<void>;
+  resetSession: () => void;
   saveEntry: (draft: DiaryEntryDraft) => Promise<DiaryEntry>;
   deleteEntry: (id: string) => Promise<void>;
   createTag: (name: string) => Promise<Tag>;
@@ -31,6 +32,9 @@ export const useDiaryStore = create<DiaryState>((set, get) => ({
         error: error instanceof Error ? error.message : "Не удалось открыть дневник",
       });
     }
+  },
+  resetSession: () => {
+    set({ ready: false, error: null, entries: [], tags: [] });
   },
   saveEntry: async (draft) => {
     const saved = await repo.saveEntry(draft);

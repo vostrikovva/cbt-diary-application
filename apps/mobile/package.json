@@ -10,17 +10,25 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
-    "prebuild": "expo prebuild --clean"
+    "prebuild": "expo prebuild --clean",
+    "build:apk:gradle": "node scripts/gradle-android.mjs assembleDebug",
+    "build:apk:gradle:release": "node scripts/gradle-android.mjs assembleRelease",
+    "build:aab:gradle": "node scripts/gradle-android.mjs bundleRelease"
   },
   "dependencies": {
-    "@op-engineering/op-sqlite": "^18.1.4",
+    "@noble/ciphers": "^2.1.1",
+    "@noble/hashes": "^2.0.1",
     "@react-native-community/datetimepicker": "^9.1.0",
     "@react-navigation/drawer": "^7.13.9",
     "expo": "~57.0.16",
     "expo-constants": "^57.0.14",
+    "expo-crypto": "~57.0.2",
+    "expo-file-system": "~57.0.6",
     "expo-linking": "^57.0.7",
+    "expo-local-authentication": "~57.0.2",
     "expo-router": "^57.0.16",
     "expo-screen-orientation": "~57.0.1",
+    "expo-secure-store": "~57.0.3",
     "expo-sqlite": "^57.0.1",
     "expo-status-bar": "~57.0.1",
     "expo-system-ui": "^57.0.2",
@@ -35,6 +43,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "eas-cli": "^23.2.0",
     "@react-native/metro-config": "0.86.2",
     "@types/react": "~19.2.2",
     "eslint": "^9.0.0",

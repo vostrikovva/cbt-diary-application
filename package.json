@@ -11,6 +11,9 @@
     "android:device": "npm run android -w mobile -- --device",
     "typecheck": "npm run typecheck -w mobile",
     "lint": "npm run lint -w mobile",
+    "build:apk:gradle": "npm run build:apk:gradle -w mobile",
+    "build:apk:gradle:release": "npm run build:apk:gradle:release -w mobile",
+    "build:aab:gradle": "npm run build:aab:gradle -w mobile",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {
