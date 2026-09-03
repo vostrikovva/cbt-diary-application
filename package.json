@@ -9,6 +9,18 @@
     "prebuild": "npm run prebuild -w mobile",
     "android": "npm run android -w mobile",
     "android:device": "npm run android -w mobile -- --device",
-    "typecheck": "npm run typecheck -w mobile"
+    "typecheck": "npm run typecheck -w mobile",
+    "lint": "npm run lint -w mobile",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "apps/mobile/**/*.{ts,tsx}": "eslint -c apps/mobile/eslint.config.js --max-warnings=0"
+  },
+  "devDependencies": {
+    "lint-staged": "^17.4.1",
+    "simple-git-hooks": "^2.14.0"
   }
 }
